@@ -10,6 +10,6 @@
 | Publish to GitHub (`allmonty/better-code-agent`) with install lines in the README | in progress | Remote set; first push pending |
 
 ## Debt
-- `hooks/check-on-stop.sh`: hashes every untracked file on each stop; slow in repos with huge untracked trees. Fix if it shows up in practice.
+- `hooks/check-on-stop.sh`: hashes every untracked file on each stop and session start; slow in repos with huge untracked trees. Fix if it shows up in practice.
 - The OpenAI harness engineering post blocks automated fetching; its summary is from InfoQ coverage.
 - No plugin icon (validator warning).

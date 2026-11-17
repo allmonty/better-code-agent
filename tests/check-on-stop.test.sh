@@ -54,6 +54,19 @@ rm -rf scripts BROKEN
 printf 'check:\n\t@echo make-check-ran; exit 1\n' > Makefile
 run false; echo "$err" | grep -q make-check-ran || fail "make check not used"
 
+# A session that starts on a red repo and changes nothing is not blocked.
+rm -f Makefile; mkdir -p scripts
+printf '#!/usr/bin/env bash\necho run >> "$(dirname "$0")/../.runs"\nexit 1\n' > scripts/check.sh; chmod +x scripts/check.sh
+echo d > d.txt
+start() { echo '{"hook_event_name":"SessionStart","session_id":"s-1"}' | CLAUDE_PROJECT_DIR="$tmp/repo" "$hook" 2>/dev/null; }
+stop_s1() { set +e; echo '{"hook_event_name":"Stop","session_id":"s-1","stop_hook_active":false}' \
+  | CLAUDE_PROJECT_DIR="$tmp/repo" "$hook" 2>"$tmp/err"; rc=$?; set -e; }
+start || fail "SessionStart must not fail"
+before=$(runs); stop_s1
+[ "$rc" = 0 ] && [ "$(runs)" = "$before" ] || fail "blocked a session that changed nothing (rc=$rc)"
+# ...but once it changes something, the gate applies.
+echo e > e.txt; stop_s1; [ "$rc" = 2 ] || fail "change in session should be checked (rc=$rc)"
+
 # Kill switch.
 echo c > c.txt
 set +e; echo '{}' | BCA_DISABLE_STOP_HOOK=1 CLAUDE_PROJECT_DIR="$tmp/repo" "$hook" 2>/dev/null; rc=$?; set -e

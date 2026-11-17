@@ -84,7 +84,7 @@ New session? `implement-task` rebuilds context from `git log`, `docs/PROGRESS.md
 | `BCA_MAX_BLOCKS` | `3` | Failed checks in a row before the agent may stop anyway (you get a warning that the work is not green) |
 | `BCA_DISABLE_STOP_HOOK` | unset | `1` turns the hook off |
 
-The hook does nothing in non-git directories or projects without `scripts/check.sh` or a `make check` target. It skips the run when nothing changed since the last green check, so question-only turns stay fast.
+The hook does nothing in non-git directories or projects without `scripts/check.sh` or a `make check` target. It skips the run when nothing changed since the last green check, or when the agent left the repo exactly as the session found it, so question-only turns stay fast and a repo that was already red doesn't trap a session that changed nothing.
 
 ## Keep the references fresh
 

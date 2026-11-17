@@ -1,5 +1,5 @@
 {
-  "description": "Block the agent from finishing while the project's check fails",
+  "description": "Block the agent from finishing while the project's check fails on changes it made",
   "hooks": {
     "Stop": [
       {
@@ -9,6 +9,18 @@
             "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/check-on-stop.sh",
             "timeout": 600,
             "statusMessage": "Running quality gate..."
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/check-on-stop.sh",
+            "timeout": 30
           }
         ]
       }

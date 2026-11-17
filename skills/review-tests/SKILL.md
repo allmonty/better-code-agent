@@ -31,7 +31,7 @@ Pick its most important branches and mentally apply mutations: flip a condition,
 - **Not weakened**: in the diff, look for deleted tests, removed asserts, new skips, widened tolerances, snapshots updated without explanation.
 
 ## 4. Coverage of intent
-Map each acceptance criterion and each error path to a test. List the ones with none.
+Map each acceptance criterion and each error path to a test. List the ones with none. Where example tests can't cover a wide input space (parsing, serialisation, arithmetic), suggest the property-based test to add.
 
 ## 5. Report
 Ranked findings, each with the test or code location, the surviving mutation or gap, and the test to add or change. End with: tests that can be trusted, tests that can't, and the missing ones.

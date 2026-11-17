@@ -17,5 +17,6 @@
 - One reason to fail per test. The name states the behaviour (`rejects_expired_token`, not `test_auth_2`).
 - Deterministic: no sleeps, no real network in unit tests, fixed seeds and clocks, no dependence on test order.
 - Never delete, skip, or loosen an existing test to get green. If a test is wrong, say why and change it in its own commit.
-- Coverage is a hint, not a goal. For critical logic, run mutation testing (Stryker, mutmut, PIT, ...) to see whether tests catch real faults.
+- Coverage is a hint, not a goal. For critical logic, run mutation testing (Stryker, mutmut, PIT, cargo-mutants, ...) on the changed code to see whether tests catch real faults.
+- For parsers, serialisers, money and other code with a wide input space, add property-based tests (Hypothesis, fast-check, proptest, StreamData): round-trips, invariants, never-crashes.
 - Claim a pass only with evidence: the command you ran and its output.

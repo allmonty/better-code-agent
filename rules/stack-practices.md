@@ -14,5 +14,6 @@
 | Ruby | rubocop | rubocop, sorbet | rspec or minitest | Capybara |
 
 - Wire format check, lint, type check, and tests into `scripts/check.sh`. That one command is the definition of green.
+- Add two cheap sensors that agents need more than humans: a duplication check (e.g. jscpd, any language) and a complexity limit in the linter (eslint `complexity`, ruff `C901`, gocyclo, clippy `cognitive_complexity`, credo). AI-assisted code measurably grows in both.
 - Use the framework's idioms for the version you're on. Before calling an API you're unsure of, check the installed version's docs or source; APIs change between versions.
 - Fix warnings rather than suppress them. Keep the strictest settings the project already uses.

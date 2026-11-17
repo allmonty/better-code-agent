@@ -1,0 +1,14 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "better-code-agent",
+  "description": "Guardrails that keep AI-generated code at production quality.",
+  "owner": { "name": "Allan Monteiro" },
+  "plugins": [
+    {
+      "name": "better-code-agent",
+      "description": "Rules, build/review skills, planning memory and a blocking quality-gate hook.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

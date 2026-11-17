@@ -1,0 +1,8 @@
+{
+  "name": "better-code-agent",
+  "version": "0.1.0",
+  "description": "Guardrails for AI-written code: rules, build and review skills, a planning/memory loop, and a Stop hook that blocks finishing while checks fail.",
+  "author": { "name": "Allan Monteiro" },
+  "license": "UNLICENSED",
+  "keywords": ["guardrails", "harness-engineering", "testing", "code-review", "agents-md"]
+}

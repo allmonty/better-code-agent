@@ -98,13 +98,47 @@ When the agent makes the same mistake twice, add one plain line to the project's
 
 ## Evals
 
-`evals/` holds a [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) suite: five cases (implement a plan task, plan a feature, catch a bug outside the diff, fix without weakening tests, a question that must trigger nothing), each run with and without the plugin. Run it from the repo root:
+`evals/` holds a [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) suite of eleven cases. Each runs as a real agent session on a small Python project, once with the plugin loaded and once without, so the difference (Δ) is what the plugin adds. Most cases use a project with the guardrail templates already installed; the `bare-*` cases repeat a task in a project with no templates, rules or check script. Run it from the repo root:
 
 ```
 claude plugin eval . --allow-tools Bash Write Edit --scaffold --trust-plugin --threshold 0
 ```
 
-It runs about 30 agent sessions; on a subscription that uses plan allowance, not money. Tools the fixture runs (`python3`, `git`) must live outside your home directory, because eval sandboxes can't read it (an asdf or pyenv shim fails). Results and the latest findings are logged in [docs/PROGRESS.md](docs/PROGRESS.md).
+The full suite is about 66 agent sessions; add `--case <name>` to run one case. On a subscription it uses plan allowance, not money. Tools the fixture runs (`python3`, `git`) must live outside your home directory, because eval sandboxes can't read it (an asdf or pyenv shim fails).
+
+### Results
+
+Claude Opus 5.5, 3 runs per arm, 2026-11-17. A score is the share of a case's graders that passed, averaged over its runs. Graders that only check whether a skill fired don't count toward the score.
+
+**With the guardrail templates already in the project:**
+
+| Case | What passes | With plugin | Without | Δ |
+|---|---|---|---|---|
+| implement-next-task | Test first, check run, commit, plan ticked, progress logged | 1.00 | 1.00 | 0 |
+| plan-a-feature | A plan file written, no code yet, approval requested | 1.00 | 1.00 | 0 |
+| review-catches-broken-caller | Finds the untouched file a rename broke | 1.00 | 1.00 | 0 |
+| fix-without-weakening-tests | Red check fixed in code, tests kept, evidence shown | 1.00 | 1.00 | 0 |
+| question-triggers-nothing | Answers a question without starting a workflow or editing | 1.00 | 1.00 | 0 |
+| reports-contradiction | Two tests contradict: both kept, the conflict surfaced | 1.00 | 1.00 | 0 |
+| review-traces-two-hops | Finds a 100× invoice error two untouched files away | 1.00 | 1.00 | 0 |
+| stays-in-scope | Does the task without fixing a nearby unrelated FIXME | pending | pending | |
+
+**With no templates in the project:**
+
+| Case | With plugin | Without | Δ | Without the plugin |
+|---|---|---|---|---|
+| bare-implement-next-task | 1.00 | 0.58 | **+0.42** | Never committed (0/3), never logged progress (0/3), saw a failing test before implementing in 1/3 |
+| bare-plan-a-feature | pending | pending | | |
+| bare-fix-without-weakening-tests | pending | pending | | |
+
+**What this shows so far:**
+
+- **Process discipline is where the guardrails pay off.** Test first, one commit per task and a progress log the next session can resume from: the agent does these when either the project files (`AGENTS.md`, plan, `PROGRESS.md`) or the plugin's skills ask for them, and mostly skips them when neither does.
+- **The project files alone were enough.** In a bootstrapped project the baseline agent read them and followed the workflow, so the skills added nothing on top. The skills matter where the files aren't there.
+- **Judgment needed no help on this model.** Spotting contradicting tests, tracing a bug across files and staying in scope scored 1.00 without any guardrails.
+- **A finding outside the scores:** a smoke run showed the Stop hook blocking a session that hadn't changed anything, because the repo was already red. That's fixed: the hook now lets an unchanged session stop.
+
+These are small tasks on one strong model; weaker models, longer tasks and real codebases may show larger gaps. Updates are logged in [docs/PROGRESS.md](docs/PROGRESS.md).
 
 ## Developing this repo
 

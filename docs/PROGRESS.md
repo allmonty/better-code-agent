@@ -14,3 +14,10 @@ Append-only. Newest entry at the bottom.
 - Not changed: rules still load every session from `.claude/rules/`. Moving them to on-demand loading would cut context cost (ETH study) but may lower adherence; worth an eval before deciding.
 - Next: skill evals; then the on-demand rules question.
 - Blocked: none.
+
+## 2026-11-17: first eval run
+- Done: `evals/` suite, 5 cases on a bootstrapped Python fixture, 3 runs per arm on Opus 5.5 (~$7 list-price estimate, billed to the subscription allowance, not money).
+- Result: every case 1.00 with the plugin and 1.00 without it (Δ 0). The baseline agent read the bootstrapped `AGENTS.md`, plan and memory files and followed the same workflow, so on these tasks the project files carry the behaviour and the plugin's skills add nothing measurable. The Stop hook was seen working in a smoke run (blocked 3 times, then let the agent stop with the not-green warning, and the agent did not touch the tests).
+- Decided: graders check file contents, not `Edit` calls, because agents also write files through Bash. Fixture uses Python because an asdf `node` shim can't run inside the eval sandbox.
+- Next: bare-project variants (no templates) to measure the harness against nothing, and harder tasks where a strong model without guidance fails.
+- Blocked: none.

@@ -96,6 +96,16 @@ Run `/better-code-agent:update-references` by hand, or schedule it monthly with 
 
 When the agent makes the same mistake twice, add one plain line to the project's `AGENTS.md` or a rule. If a rule must never be broken, turn it into a check in `scripts/check.sh` (a lint rule, a structural test) rather than stronger wording. Delete rules the agent already follows on its own.
 
+## Evals
+
+`evals/` holds a [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) suite: five cases (implement a plan task, plan a feature, catch a bug outside the diff, fix without weakening tests, a question that must trigger nothing), each run with and without the plugin. Run it from the repo root:
+
+```
+claude plugin eval . --allow-tools Bash Write Edit --scaffold --trust-plugin --threshold 0
+```
+
+It runs about 30 agent sessions; on a subscription that uses plan allowance, not money. Tools the fixture runs (`python3`, `git`) must live outside your home directory, because eval sandboxes can't read it (an asdf or pyenv shim fails). Results and the latest findings are logged in [docs/PROGRESS.md](docs/PROGRESS.md).
+
 ## Developing this repo
 
 `scripts/check.sh` runs `tests/run.sh`: shell syntax, JSON validity, and tests for the bootstrap script, the Stop hook, the link checker and the skill format. `claude plugin validate .` checks the manifests. See [AGENTS.md](AGENTS.md) and [docs/ROADMAP.md](docs/ROADMAP.md).

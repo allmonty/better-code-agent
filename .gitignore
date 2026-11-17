@@ -17,3 +17,6 @@ tmp/
 # Claude Code local settings (machine-specific permission grants)
 .claude/settings.local.json
 CLAUDE.local.md
+
+# Eval results (written by claude plugin eval)
+evals/results/

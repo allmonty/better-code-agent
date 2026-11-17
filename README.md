@@ -28,12 +28,20 @@ A memory loop (roadmap, per-feature plans, progress log, ADRs) lets big features
 
 ## Install
 
-**1. The plugin** (skills + Stop hook), once per machine:
+**1. The plugin** (skills + Stop hook), once per machine. In one step (Claude Code 2.1.275 or later):
 
 ```
-/plugin marketplace add /path/to/better-code-agent      # or <owner>/better-code-agent once it's on GitHub
+/plugin install better-code-agent --marketplace allmonty/better-code-agent
+```
+
+Or in two:
+
+```
+/plugin marketplace add allmonty/better-code-agent
 /plugin install better-code-agent@better-code-agent
 ```
+
+To try local changes, add a clone instead: `/plugin marketplace add /path/to/better-code-agent`.
 
 **2. Each project**, from inside it:
 
@@ -41,7 +49,7 @@ A memory loop (roadmap, per-feature plans, progress log, ADRs) lets big features
 /better-code-agent:bootstrap-project
 ```
 
-Or without Claude: `/path/to/better-code-agent/scripts/bootstrap.sh <project-dir>`, then fill in `scripts/check.sh` and the commands in `AGENTS.md`. The script never overwrites existing files.
+Or without Claude: `git clone https://github.com/allmonty/better-code-agent.git` and run `better-code-agent/scripts/bootstrap.sh <project-dir>`, then fill in `scripts/check.sh` and the commands in `AGENTS.md`. The script never overwrites existing files.
 
 This adds `AGENTS.md`, `CLAUDE.md` (imports it), `.claude/rules/*.md`, `docs/ROADMAP.md`, `docs/PROGRESS.md`, `docs/plans/_template.md`, `docs/adr/0000-template.md` and `scripts/check.sh`.
 
@@ -87,3 +95,9 @@ When the agent makes the same mistake twice, add one plain line to the project's
 ## Developing this repo
 
 `scripts/check.sh` runs `tests/run.sh`: shell syntax, JSON validity, and tests for the bootstrap script, the Stop hook, the link checker and the skill format. `claude plugin validate .` checks the manifests. See [AGENTS.md](AGENTS.md) and [docs/ROADMAP.md](docs/ROADMAP.md).
+
+Issues and pull requests: https://github.com/allmonty/better-code-agent
+
+## License
+
+[MIT](LICENSE) © 2026 Allan Monteiro

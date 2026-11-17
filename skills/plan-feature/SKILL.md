@@ -10,7 +10,7 @@ Feature: $ARGUMENTS
 
 1. **Read first.** Read `AGENTS.md`, `docs/ROADMAP.md`, the last entries of `docs/PROGRESS.md`, related ADRs, and the code the feature touches. Trace the real flow: entry points, data, callers, existing tests. Note helpers and patterns to reuse.
 2. **Ask what you can't find.** If the goal, users, edge cases or constraints are unclear, ask before writing. Don't fill gaps with guesses.
-3. **Write `docs/plans/<feature-slug>.md`** from `docs/plans/_template.md`:
+3. **Write `docs/plans/<feature-slug>.md`** from `docs/plans/_template.md`, sized to the work: a two- or three-commit change gets a goal, a few criteria and its tasks, not user stories or a design essay. Drop template sections that would be empty.
    - Goal: what the user can do afterwards.
    - Acceptance criteria: observable and testable, numbered.
    - Out of scope: what you're deliberately not doing.

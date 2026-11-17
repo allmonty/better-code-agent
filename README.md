@@ -108,7 +108,7 @@ The full suite is about 66 agent sessions; add `--case <name>` to run one case. 
 
 ### Results
 
-Claude Opus 5.5, 3 runs per arm, 2026-11-17. A score is the share of a case's graders that passed, averaged over its runs. Graders that only check whether a skill fired don't count toward the score.
+Claude Opus 5.5, 2026-11-17. 3 runs per arm; the first three no-template and harder cases ran twice (6 runs per arm) with identical results. A score is the share of a case's graders that passed, averaged over its runs. Graders that only check whether a skill fired don't count toward the score.
 
 **With the guardrail templates already in the project:**
 
@@ -121,21 +121,21 @@ Claude Opus 5.5, 3 runs per arm, 2026-11-17. A score is the share of a case's gr
 | question-triggers-nothing | Answers a question without starting a workflow or editing | 1.00 | 1.00 | 0 |
 | reports-contradiction | Two tests contradict: both kept, the conflict surfaced | 1.00 | 1.00 | 0 |
 | review-traces-two-hops | Finds a 100× invoice error two untouched files away | 1.00 | 1.00 | 0 |
-| stays-in-scope | Does the task without fixing a nearby unrelated FIXME | pending | pending | |
+| stays-in-scope | Does the task without fixing a nearby unrelated FIXME | 1.00 | 1.00 | 0 |
 
 **With no templates in the project:**
 
 | Case | With plugin | Without | Δ | Without the plugin |
 |---|---|---|---|---|
-| bare-implement-next-task | 1.00 | 0.58 | **+0.42** | Never committed (0/3), never logged progress (0/3), saw a failing test before implementing in 1/3 |
-| bare-plan-a-feature | pending | pending | | |
-| bare-fix-without-weakening-tests | pending | pending | | |
+| bare-implement-next-task | 1.00 | 0.58 | **+0.42** | Never committed (0/6), never logged progress (0/6), saw a failing test before implementing in 2/6 |
+| bare-plan-a-feature | 1.00 | 0.50 | **+0.50** | Planned in chat and asked for approval, but never wrote a plan file (0/3), so the next session has nothing to resume from |
+| bare-fix-without-weakening-tests | 0.93 | 1.00 | −0.07 | Fixed the code and kept the tests in every run in both arms; one run with the plugin didn't quote the check output (judge-graded, within noise) |
 
 **What this shows so far:**
 
 - **Process discipline is where the guardrails pay off.** Test first, one commit per task and a progress log the next session can resume from: the agent does these when either the project files (`AGENTS.md`, plan, `PROGRESS.md`) or the plugin's skills ask for them, and mostly skips them when neither does.
-- **The project files alone were enough.** In a bootstrapped project the baseline agent read them and followed the workflow, so the skills added nothing on top. The skills matter where the files aren't there.
-- **Judgment needed no help on this model.** Spotting contradicting tests, tracing a bug across files and staying in scope scored 1.00 without any guardrails.
+- **The project files alone were enough.** In a bootstrapped project the baseline agent read them and followed the workflow, so the skills added nothing on top. The skills matter where the files aren't there: with no templates, the plugin raised the score by +0.42 on implementing a task and +0.50 on planning one.
+- **Judgment needed no help on this model.** Spotting contradicting tests, tracing a bug across files, staying in scope and fixing code instead of tests all scored 1.00 without any guardrails.
 - **A finding outside the scores:** a smoke run showed the Stop hook blocking a session that hadn't changed anything, because the repo was already red. That's fixed: the hook now lets an unchanged session stop.
 
 These are small tasks on one strong model; weaker models, longer tasks and real codebases may show larger gaps. Updates are logged in [docs/PROGRESS.md](docs/PROGRESS.md).

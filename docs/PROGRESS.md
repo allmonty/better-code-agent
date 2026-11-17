@@ -21,3 +21,10 @@ Append-only. Newest entry at the bottom.
 - Decided: graders check file contents, not `Edit` calls, because agents also write files through Bash. Fixture uses Python because an asdf `node` shim can't run inside the eval sandbox.
 - Next: bare-project variants (no templates) to measure the harness against nothing, and harder tasks where a strong model without guidance fails.
 - Blocked: none.
+
+## 2026-11-17: second eval round (bare-project and harder cases)
+- Done: six new cases, 3 runs per arm; the first three ran twice (an inverted skip check in the local queue script reran them) and reproduced exactly. About $10 list-price estimate in total, on the subscription allowance.
+- Result: with no templates in the project, the plugin raised bare-implement-next-task from 0.58 to 1.00 (without it: no commits, no progress log, test-first in 2/6) and bare-plan-a-feature from 0.50 to 1.00 (without it: plan only in chat, no plan file). bare-fix-without-weakening-tests 0.93 vs 1.00 (one judge-graded evidence miss with the plugin, within noise). stays-in-scope, reports-contradiction and review-traces-two-hops: 1.00 in both arms.
+- Decided: the value is process discipline and durable memory, supplied by either the project files or the skills; judgment tasks need no help on Opus 5.5. The README Results section holds the tables.
+- Next: run on a weaker model (`--model sonnet`/`haiku`) and on longer multi-task work, where guardrails are expected to matter more; then revisit loading rules on demand.
+- Blocked: none.

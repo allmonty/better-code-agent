@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 # Shared fixture: a tiny dependency-free Python project with the guardrail
 # templates installed, a configured check, and one commit.
+# --bare: the same code and tests with no templates, rules or check script.
 set -euo pipefail
 plugin_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+bare=false; [ "${1:-}" = "--bare" ] && bare=true
 
 git init -q -b main
 git config user.email eval@example.com
 git config user.name "Eval Runner"
 
-"$plugin_root/scripts/bootstrap.sh" . >/dev/null
+$bare || "$plugin_root/scripts/bootstrap.sh" . >/dev/null
 
 mkdir -p textutils tests
 : > textutils/__init__.py
@@ -41,6 +43,7 @@ class TitleCaseTest(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 PY
+if ! $bare; then
 cat > scripts/check.sh <<'SH'
 #!/usr/bin/env bash
 # Quality gate: the test suite (no other tools in this small project).
@@ -50,6 +53,7 @@ python3 -m unittest discover -s tests -t . 2>&1
 SH
 chmod +x scripts/check.sh
 sed -i.bak 's|^- Run one test: .*|- Run one test: `python3 -m unittest tests.test_text`|' AGENTS.md && rm AGENTS.md.bak
+fi
 printf '__pycache__/\n' > .gitignore
 
 git add -A

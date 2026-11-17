@@ -16,11 +16,13 @@ Don't report done until each line below holds, with evidence shown.
 - [ ] No leftovers in the diff: debug prints, commented-out code, TODO without a `shortcut:` note
 - [ ] Plan tasks ticked; plan status, docs/ROADMAP.md and docs/PROGRESS.md updated
 - [ ] Known limits written down as `shortcut:` comments and under Debt in the roadmap
+- [ ] Harness retro: anything to add (a mistake you or the user corrected twice) or prune (a rule that didn't apply or contradicts the code)?
 ```
 
 1. Find the acceptance criteria in the active plan in `docs/plans/` (or the user's request if there is no plan).
 2. Work through the list. Run commands; don't rely on earlier runs or memory.
 3. For anything that fails, fix it if it's in scope, then rerun the whole list. If it's out of scope or blocked, say so.
-4. Report either **Done**, with the evidence for each line, or **Not done**, with what is missing.
+4. For the harness retro, propose the exact line to add to or remove from `AGENTS.md` or `.claude/rules/`; don't edit them without the user's OK.
+5. Report either **Done**, with the evidence for each line, or **Not done**, with what is missing.
 
 If `/verify` is available and the change is user-facing, use it for the third line.

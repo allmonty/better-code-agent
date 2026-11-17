@@ -15,4 +15,5 @@ Sessions don't remember each other. These files do:
 - In a plan, tick tasks; don't delete or reword acceptance criteria or tests to fit what you built. If the plan is wrong, stop, edit it in a visible note, and say so.
 - After each task, append to `docs/PROGRESS.md`: date, task, what changed, decisions, next step, blockers. Facts only, a few lines.
 - Don't guess requirements or APIs. Read the code or docs, or write the question in the plan's Open questions and ask.
-- When the same mistake happens twice, add a line to `AGENTS.md` or a rule so it doesn't happen a third time.
+- When the same mistake happens twice, add a line to `AGENTS.md` or a rule so it doesn't happen a third time. When a rule, plan or doc no longer matches the code or stopped mattering, delete or fix it; stale docs mislead the next session.
+- Don't create other Markdown docs (notes, summaries, reports) unless asked. These files are the memory.

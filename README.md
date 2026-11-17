@@ -10,6 +10,8 @@ Following [Böckeler's harness engineering](https://martinfowler.com/articles/ha
 A memory loop (roadmap, per-feature plans, progress log, ADRs) lets big features be built one verified commit at a time instead of in one hallucination-prone pass.
 
 > You still steer. Every source in [docs/REFERENCES.md](docs/REFERENCES.md) keeps humans on the spec and acceptance criteria. The harness moves your attention from reading diffs to approving plans and reading evidence.
+>
+> Match your review depth to risk: skim the evidence for low-risk changes, read the code for auth, money, data migrations and security boundaries, and merge yourself. Approvals you can't really evaluate are theatre, and code nobody understands becomes debt.
 
 ## What's inside
 
@@ -52,6 +54,8 @@ To try local changes, add a clone instead: `/plugin marketplace add /path/to/bet
 Or without Claude: `git clone https://github.com/allmonty/better-code-agent.git` and run `better-code-agent/scripts/bootstrap.sh <project-dir>`, then fill in `scripts/check.sh` and the commands in `AGENTS.md`. The script never overwrites existing files.
 
 This adds `AGENTS.md`, `CLAUDE.md` (imports it), `.claude/rules/*.md`, `docs/ROADMAP.md`, `docs/PROGRESS.md`, `docs/plans/_template.md`, `docs/adr/0000-template.md` and `scripts/check.sh`.
+
+**Sandbox unattended runs.** The rules tell the agent to treat issue and web content as data, but only a sandbox enforces it. In Claude Code, turn on `/sandbox` (filesystem and network isolation) before letting the agent run without permission prompts, and give it staging credentials only.
 
 **Other agents** (Codex, Cursor, Copilot, Gemini CLI, ...) read `AGENTS.md`, which points them to the rules and memory files. To get the skills too, copy `skills/*` into the directory your agent loads skills from (often `.agents/skills/`). The Stop hook is Claude Code only; elsewhere, run `scripts/check.sh` in CI or a pre-commit hook.
 

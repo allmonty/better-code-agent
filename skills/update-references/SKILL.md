@@ -21,10 +21,12 @@ disable-model-invocation: true
 3. **Search**, official sources first. Run several searches at once:
    - Anthropic: anthropic.com/engineering, code.claude.com/docs (best practices, hooks, skills, memory changes), platform.claude.com skills docs.
    - OpenAI: openai.com/index, Codex docs on AGENTS.md and agent configuration.
-   - GitHub (Spec Kit, Copilot agent docs), Google (DORA, Gemini CLI docs), the AGENTS.md standard.
-   - Practitioners: martinfowler.com (Böckeler), Simon Willison, Addy Osmani, Kent Beck, Thoughtworks Technology Radar.
+   - GitHub (Spec Kit, Copilot agent and code review docs), Google (DORA, Gemini CLI docs), Cursor docs and blog, Microsoft MSRC, the AGENTS.md standard.
+   - Standards: OWASP GenAI Security Project, NIST CAISI agent standards.
+   - Practitioners: martinfowler.com (Böckeler, Sietsma), Simon Willison (incl. his Agentic Engineering Patterns guide), Addy Osmani, Kent Beck, Gergely Orosz, Thoughtworks Technology Radar (new volume each April and November).
+   - Research: METR, Stack Overflow Developer Survey (yearly), DORA, arXiv cs.SE and MSR/ICSE/FSE papers on agents, context files, test generation and code quality.
    - Topics: harness engineering, agent guardrails, AGENTS.md, spec-driven development, testing AI-written code, mutation testing with agents, AI code review, agent memory/progress files, slopsquatting.
-4. **Verify each candidate** by opening it. Keep it only if you read it and it gives a concrete, actionable practice or evidence. Record its real date and author. Mark vendor content as Vendor. If a site blocks fetching, confirm it through reputable coverage and say so in a note, as the OpenAI entry does. Never list something you haven't verified.
+4. **Verify each candidate** by opening it. For a thorough pass, also ask a subagent with no context to research the topic independently, then merge both lists; each catches sources the other misses. Keep it only if you read it and it gives a concrete, actionable practice or evidence. Record its real date and author. Mark vendor content as Vendor. If a site blocks fetching, confirm it through reputable coverage and say so in a note, as the OpenAI entry does. Never list something you haven't verified.
 5. **Edit the file**: add entries in the existing format and section (title — author — link — date — tier, a one- or two-line takeaway, `Applied:` if this repo uses it). Update entries whose official docs changed. Remove entries that are superseded, and say what replaced them. Set `Last reviewed` to today.
 6. **Propose harness changes**: list, for the user, any rule, skill or hook in this repo that the new material contradicts or would improve, with the source. Don't change them in this skill; each becomes its own commit after approval.
 7. **Commit** `docs/REFERENCES.md` alone: "Refresh references (YYYY-MM-DD)", with the added and removed entries in the body.

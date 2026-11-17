@@ -28,3 +28,9 @@ Append-only. Newest entry at the bottom.
 - Decided: the value is process discipline and durable memory, supplied by either the project files or the skills; judgment tasks need no help on Opus 5.5. The README Results section holds the tables.
 - Next: run on a weaker model (`--model sonnet`/`haiku`) and on longer multi-task work, where guardrails are expected to matter more; then revisit loading rules on demand.
 - Blocked: none.
+
+## 2026-11-17: Sonnet and Haiku eval round (partial)
+- Done: full suite on Haiku and Sonnet (3 runs per arm), before the session-context fix. Same pattern as Opus on most cases: the plugin helps in bare projects (bare-implement: Haiku 0.96 vs 0.58, Sonnet 1.00 vs 0.50; bare-plan on Sonnet 1.00 vs 0.50; bare-fix on Sonnet 1.00 vs 0.80) and is neutral where templates exist. Haiku never invoked skills on its own for planning (bare-plan 0.50 in both arms).
+- Found: on reports-contradiction the plugin made Sonnet worse (older test rewritten in 7/11 runs with the plugin vs 1/11 without). Fixed in b3e2872 by injecting the test-integrity rule on SessionStart; after the fix the test was kept 4/4 on Sonnet and 4/4 on Haiku (Haiku without the plugin: 0/4).
+- Not done: rerunning the rest of the suite with the fix hit the 5-hour usage limit (Haiku stopped at fix-without-weakening-tests; Sonnet's two test-fixing cases errored). Results so far are in the session scratchpad, not the repo.
+- Next: after the limit resets, rerun Haiku from fix-without-weakening-tests and Sonnet's fix cases, then add per-model columns to the README Results section.

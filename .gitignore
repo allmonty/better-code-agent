@@ -1,5 +1,19 @@
+# Secrets
 .env
 .env.*
 !.env.example
+
+# OS and editors
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs and temp files
+*.log
+tmp/
+
+# Claude Code local settings (machine-specific permission grants)
 .claude/settings.local.json
+CLAUDE.local.md

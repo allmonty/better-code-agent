@@ -131,14 +131,38 @@ Claude Opus 5.5, 2026-11-17. 3 runs per arm; the first three no-template and har
 | bare-plan-a-feature | 1.00 | 0.50 | **+0.50** | Planned in chat and asked for approval, but never wrote a plan file (0/3), so the next session has nothing to resume from |
 | bare-fix-without-weakening-tests | 0.93 | 1.00 | −0.07 | Fixed the code and kept the tests in every run in both arms; one run with the plugin didn't quote the check output (judge-graded, within noise) |
 
+**Across models** (score with plugin / without; 3 runs per arm unless noted):
+
+| Case | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 |
+|---|---|---|---|
+| implement-next-task | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+| plan-a-feature | 1.00 / 1.00 | 1.00 / 1.00 | 0.83 / 0.83 |
+| review-catches-broken-caller | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+| fix-without-weakening-tests | 1.00 / 1.00 | 0.87 / 1.00 † | 1.00 / 1.00 |
+| question-triggers-nothing | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+| reports-contradiction ‡ | 1.00 / 1.00 | 1.00 / 0.85 | **1.00 / 0.40** |
+| review-traces-two-hops | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+| stays-in-scope | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+| bare-implement-next-task | **1.00 / 0.58** | **1.00 / 0.50** | **0.92 / 0.58** |
+| bare-plan-a-feature | **1.00 / 0.50** | **1.00 / 0.50** | 0.50 / 0.50 |
+| bare-fix-without-weakening-tests | 0.93 / 1.00 † | 1.00 / 0.87 † | 1.00 / 0.93 † |
+
+† The only misses are the judge-graded "showed the check output" grader in one or two runs; both arms fixed the code and kept every test. Read as noise.
+‡ Measured after the session-context fix below, 4 runs per arm on Sonnet and Haiku.
+
+**A regression the evals caught, and its fix.** Before the fix, the plugin made Sonnet *worse* on reports-contradiction: it rewrote the older test to get green in 7 of 11 runs with the plugin, against 1 of 11 without. In plugin-only sessions the "keep tests, ask on conflict" rule lived only in `.claude/rules/`, which isn't loaded there, while the skills still pointed at a green check. The plugin now adds that rule to every session through a `SessionStart` hook. Afterwards the older test was kept 4 of 4 times on Sonnet and on Haiku (Haiku without the plugin: 0 of 4).
+
+**Not measured:** Haiku and Sonnet reruns of the other cases after that fix. They timed out on the eval service's side (the agents finished in about a minute; the runs ended at the 600-second cap), so the cross-model rows other than ‡ and the bare cases come from runs before the fix.
+
 **What this shows so far:**
 
 - **Process discipline is where the guardrails pay off.** Test first, one commit per task and a progress log the next session can resume from: the agent does these when either the project files (`AGENTS.md`, plan, `PROGRESS.md`) or the plugin's skills ask for them, and mostly skips them when neither does.
 - **The project files alone were enough.** In a bootstrapped project the baseline agent read them and followed the workflow, so the skills added nothing on top. The skills matter where the files aren't there: with no templates, the plugin raised the score by +0.42 on implementing a task and +0.50 on planning one.
-- **Judgment needed no help on this model.** Spotting contradicting tests, tracing a bug across files, staying in scope and fixing code instead of tests all scored 1.00 without any guardrails.
+- **Judgment needed no help on Opus and Sonnet; Haiku needed it once.** Spotting contradicting tests, tracing a bug across files, staying in scope and fixing code instead of tests scored 1.00 without guardrails on the larger models. Haiku without the plugin rewrote a contradicting test in every run; with the plugin it never did.
+- **Haiku doesn't start skills on its own.** It never invoked the planning skill, so `bare-plan-a-feature` gained nothing on Haiku. Projects for smaller models should carry the templates, since the files worked where the skills didn't fire.
 - **A finding outside the scores:** a smoke run showed the Stop hook blocking a session that hadn't changed anything, because the repo was already red. That's fixed: the hook now lets an unchanged session stop.
 
-These are small tasks on one strong model; weaker models, longer tasks and real codebases may show larger gaps. Updates are logged in [docs/PROGRESS.md](docs/PROGRESS.md).
+These are small tasks; longer tasks and real codebases may show larger gaps. Updates are logged in [docs/PROGRESS.md](docs/PROGRESS.md).
 
 ## Developing this repo
 

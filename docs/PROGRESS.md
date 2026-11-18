@@ -34,3 +34,8 @@ Append-only. Newest entry at the bottom.
 - Found: on reports-contradiction the plugin made Sonnet worse (older test rewritten in 7/11 runs with the plugin vs 1/11 without). Fixed in b3e2872 by injecting the test-integrity rule on SessionStart; after the fix the test was kept 4/4 on Sonnet and 4/4 on Haiku (Haiku without the plugin: 0/4).
 - Not done: rerunning the rest of the suite with the fix hit the 5-hour usage limit (Haiku stopped at fix-without-weakening-tests; Sonnet's two test-fixing cases errored). Results so far are in the session scratchpad, not the repo.
 - Next: after the limit resets, rerun Haiku from fix-without-weakening-tests and Sonnet's fix cases, then add per-model columns to the README Results section.
+
+## 2026-11-18: cross-model results written up
+- Done: README Results gets an across-models table (Opus, Sonnet, Haiku) using clean runs only: the full Sonnet and Haiku suites from before the session-context fix, plus post-fix reports-contradiction (4 runs per arm) and the post-fix runs that finished cleanly.
+- Found: Haiku never starts skills on its own (bare-plan 0.50 both arms), but with the plugin it stopped rewriting a contradicting test (4/4 kept vs 0/4).
+- Not done: post-fix reruns of the remaining Haiku cases timed out at the 600-second cap in both arms overnight (agents finished in about a minute; the delay was on the eval service's side). Rerun them in daytime if needed.

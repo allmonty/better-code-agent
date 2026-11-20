@@ -4,7 +4,7 @@ This repo is a Claude Code plugin and a template kit of guardrails for AI coding
 
 ## Commands
 - Check (must be green before any commit): `scripts/check.sh`
-- Validate the plugin manifests: `claude plugin validate .`
+- Validate the plugin manifests: `claude plugin validate --strict .`
 - Check reference links (network): `scripts/check-links.sh`
 
 ## Where things are

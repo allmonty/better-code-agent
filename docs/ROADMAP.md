@@ -10,17 +10,15 @@
 | Publish to GitHub (`allmonty/better-code-agent`) with install lines in the README | done | 2026-11-17 |
 
 ## Next up
-In priority order. Tick or remove items as they're done.
+In priority order. Tick items when done; prune ticked ones now and then.
 
 1. [ ] Use the plugin on a real project and note which rules and skills earn their place.
-2. [x] Finish the post-fix eval reruns on Haiku (the overnight run on 2026-11-18 timed out on the eval service's side) and update the README cross-model table.
-3. [x] Eval cases for longer, multi-task work, where the guardrails should matter most.
-9. [ ] Make `plan-feature` and `implement-task` start on their own for "build X" requests and whole-plan runs (long-feature-end-to-end: no plan or step commits on any model; long-implement-whole-plan: no progress log). Re-measure with the long evals.
-4. [ ] Measure loading rules on demand vs. always (the ETH Zurich AGENTS.md study suggests lower cost), using the eval suite.
-5. [x] "Use with any agent" README section with a copy-paste prompt for Codex, Cursor and Gemini.
-6. [ ] Stack packs, agent adapters and the CI template (milestones above).
-7. [x] Small debt below: plugin icon, untracked-file hashing in the Stop hook.
-8. [ ] Refresh `docs/REFERENCES.md` with `update-references` around mid-December 2026; the next Thoughtworks Radar is due in April 2027.
+2. [ ] Make `plan-feature` and `implement-task` start on their own for "build X" requests and whole-plan runs (long-feature-end-to-end: no plan or step commits on any model; long-implement-whole-plan: no progress log). Re-measure with the long evals.
+3. [ ] Measure loading rules on demand vs. always (the ETH Zurich AGENTS.md study suggests lower cost), using the eval suite.
+4. [ ] Stack packs, agent adapters and the CI template (milestones above).
+5. [ ] Refresh `docs/REFERENCES.md` with `update-references` around mid-December 2026; the next Thoughtworks Radar is due in April 2027.
+
+Done: post-fix Haiku reruns, long multi-task evals, "Use with any agent" README section, plugin icon and Stop hook fingerprint (2026-11-20).
 
 ## Debt
 - The OpenAI harness engineering post blocks automated fetching; its summary is from InfoQ coverage.

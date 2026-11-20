@@ -27,6 +27,7 @@ A memory loop (roadmap, per-feature plans, progress log, ADRs) lets big features
 | `verify-done` | Definition of done with evidence for each item | The agent, before saying "done" |
 | `update-references` | Refreshes the reading list from official sources first | You, or a monthly routine |
 | Stop hook | Runs `scripts/check.sh` (or `make check`) when the agent tries to stop; blocks on failure | Automatically |
+| Session rule | Adds "never delete, skip, loosen or rewrite an existing test to get green; ask when tests conflict" to every session, including projects without `.claude/rules/` | Automatically (SessionStart hook) |
 
 ## Install
 
@@ -125,13 +126,13 @@ When the agent makes the same mistake twice, add one plain line to the project's
 
 ## Evals
 
-`evals/` holds a [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) suite of eleven cases. Each runs as a real agent session on a small Python project, once with the plugin loaded and once without, so the difference (Δ) is what the plugin adds. Most cases use a project with the guardrail templates already installed; the `bare-*` cases repeat a task in a project with no templates, rules or check script. Run it from the repo root:
+`evals/` holds a [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) suite of fourteen cases. Each runs as a real agent session on a small Python project, once with the plugin loaded and once without, so the difference (Δ) is what the plugin adds. Most cases use a project with the guardrail templates already installed; the `bare-*` cases repeat a task in a project with no templates, rules or check script, and the `long-*` cases cover multi-task work across a plan or a new session. Run it from the repo root:
 
 ```
 claude plugin eval . --allow-tools Bash Write Edit --scaffold --trust-plugin --threshold 0
 ```
 
-The full suite is about 66 agent sessions; add `--case <name>` to run one case. On a subscription it uses plan allowance, not money. Tools the fixture runs (`python3`, `git`) must live outside your home directory, because eval sandboxes can't read it (an asdf or pyenv shim fails).
+The full suite is about 84 agent sessions; add `--case <name>` to run one case. On a subscription it uses plan allowance, not money. Tools the fixture runs (`python3`, `git`) must live outside your home directory, because eval sandboxes can't read it (an asdf or pyenv shim fails).
 
 ### Results
 

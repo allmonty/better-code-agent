@@ -53,3 +53,8 @@ Append-only. Newest entry at the bottom.
 - Done: `templates/.github/workflows/check.yml` (runs scripts/check.sh on push and PRs), wired by bootstrap-project. Rewrote plan-feature and implement-task descriptions and behaviour so they start on build requests, absent users and whole-plan runs. Found and fixed Haiku mistaking the skill's folder for the project; skills now anchor paths to the working directory.
 - Result (with-plugin arm, 3 runs; without arms unchanged): Sonnet end-to-end 0.62 -> 0.92, whole plan 0.67 -> 1.00; Haiku whole plan 0.79 -> 0.92, plan-a-feature 0.83 -> 1.00, bare-plan 0.50 -> 1.00, resume 6/6 after the path fix. No regressions on plan-a-feature (still stops) or question-triggers-nothing.
 - Next: Haiku on long-feature-end-to-end still skips planning (0.62).
+
+## 2026-11-20: Haiku planning gap closed
+- Done: traces showed Haiku sees plan-feature but never chooses it for "build this, I'm away". Added one line to the SessionStart rule: multi-commit work starts with a plan and lands as one tested commit per task.
+- Result (with plugin, 3 runs): Haiku long-feature-end-to-end 0.62 -> 1.00; plan-a-feature, question-triggers-nothing, stays-in-scope 1.00. Sonnet end-to-end 0.83 (0.92 before; 0.88 over 6 runs).
+- Decided: for smaller models the always-on rule is the lever; skills alone aren't chosen.

@@ -8,7 +8,17 @@
       "name": "better-code-agent",
       "description": "Rules, build/review skills, planning memory and a blocking quality-gate hook.",
       "source": "./",
-      "category": "productivity"
+      "category": "productivity",
+      "homepage": "https://github.com/allmonty/better-code-agent#readme",
+      "tags": [
+        "guardrails",
+        "harness-engineering",
+        "tdd",
+        "code-review",
+        "agents-md",
+        "claude-code",
+        "stop-hook"
+      ]
     }
   ]
 }

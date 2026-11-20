@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions, ideas & real-world field notes
+    url: https://github.com/allmonty/better-code-agent/discussions
+    about: Share how the harness worked on a real project or propose ideas before writing code.
+  - name: Security vulnerability report
+    url: https://github.com/allmonty/better-code-agent/security/advisories/new
+    about: Report vulnerabilities in hooks, scripts, or CI workflows privately.

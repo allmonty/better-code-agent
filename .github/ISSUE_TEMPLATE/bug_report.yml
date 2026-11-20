@@ -1,0 +1,41 @@
+name: Bug report
+description: Report a bug in a hook, script, skill, rule, template, or CI workflow
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Component
+      options:
+        - Stop hook / SessionStart hook
+        - Bootstrap script or templates
+        - Skills
+        - Rules
+        - CI workflow template
+        - Eval suite
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Run ...
+        2. Observe ...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, coding agent (Claude Code, Codex, Cursor, etc.), and version.
+      placeholder: macOS 15, Claude Code 2.1.x

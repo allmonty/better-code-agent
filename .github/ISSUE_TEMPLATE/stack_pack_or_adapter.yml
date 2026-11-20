@@ -1,0 +1,22 @@
+name: Stack pack or agent adapter
+description: Propose or contribute a stack preset or adapter for another coding agent
+title: "[enhancement]: "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - Stack pack (TS/JS, Python, Go, Rust, Elixir, etc.)
+        - Agent adapter (Codex, Cursor, Copilot, Gemini CLI, etc.)
+        - Other improvement
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Describe the target stack or agent, standard quality gate tools (format, lint + complexity, types, duplication, tests), and any gotchas.
+    validations:
+      required: true

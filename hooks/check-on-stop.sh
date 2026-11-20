@@ -27,8 +27,18 @@ max="${BCA_MAX_BLOCKS:-3}"
 # untracked files (stat, not content, so big untracked trees stay cheap).
 # shortcut: a same-size edit to an untracked file within the same second goes unseen; hash contents if that bites.
 if stat -c %s . >/dev/null 2>&1; then sfmt=(-c '%s %Y %n'); else sfmt=(-f '%z %m %N'); fi
-fp="$( { git rev-parse HEAD 2>/dev/null; git diff HEAD --binary 2>/dev/null || git diff --binary;
-        git ls-files -z --others --exclude-standard | xargs -0 stat "${sfmt[@]}" 2>/dev/null; } | shasum | cut -d' ' -f1)"
+hash_stream() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum | cut -d' ' -f1
+  elif command -v shasum >/dev/null 2>&1; then
+    shasum | cut -d' ' -f1
+  else
+    cksum | tr ' ' '-'
+  fi
+}
+fp="$( { git rev-parse HEAD 2>/dev/null;
+        git diff HEAD --binary 2>/dev/null || { git diff --cached --binary; git diff --binary; };
+        git ls-files -z --others --exclude-standard | xargs -0 stat "${sfmt[@]}" 2>/dev/null; } | hash_stream)"
 
 sid="$(echo "$input" | sed -n 's/.*"session_id"[[:space:]]*:[[:space:]]*"\([A-Za-z0-9_-]*\)".*/\1/p' | head -1)"
 

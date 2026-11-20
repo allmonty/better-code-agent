@@ -22,6 +22,5 @@ In priority order. Tick or remove items as they're done.
 8. [ ] Refresh `docs/REFERENCES.md` with `update-references` around mid-December 2026; the next Thoughtworks Radar is due in April 2027.
 
 ## Debt
-- `hooks/check-on-stop.sh`: hashes every untracked file on each stop and session start; slow in repos with huge untracked trees. Fix if it shows up in practice.
 - The OpenAI harness engineering post blocks automated fetching; its summary is from InfoQ coverage.
 - No plugin icon (validator warning).

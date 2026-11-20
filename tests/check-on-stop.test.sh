@@ -49,6 +49,10 @@ before=$(runs); run false; [ "$rc" = 0 ] && [ "$(runs)" = "$before" ] || fail "n
 # A new change re-arms the gate.
 echo b > b.txt; run false; [ "$rc" = 2 ] || fail "new change should re-check"
 
+# Changing the content of an existing untracked file (same name) re-arms it too.
+run true; echo b2 > b.txt; before=$(runs); run false
+[ "$(runs)" != "$before" ] || fail "content change in untracked file not detected"
+
 # make check is used when there is no scripts/check.sh.
 rm -rf scripts BROKEN
 printf 'check:\n\t@echo make-check-ran; exit 1\n' > Makefile

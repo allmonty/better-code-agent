@@ -18,9 +18,8 @@ In priority order. Tick or remove items as they're done.
 4. [ ] Measure loading rules on demand vs. always (the ETH Zurich AGENTS.md study suggests lower cost), using the eval suite.
 5. [ ] "Use with any agent" README section with a copy-paste prompt for Codex, Cursor and Gemini.
 6. [ ] Stack packs, agent adapters and the CI template (milestones above).
-7. [ ] Small debt below: plugin icon, untracked-file hashing in the Stop hook.
+7. [x] Small debt below: plugin icon, untracked-file hashing in the Stop hook.
 8. [ ] Refresh `docs/REFERENCES.md` with `update-references` around mid-December 2026; the next Thoughtworks Radar is due in April 2027.
 
 ## Debt
 - The OpenAI harness engineering post blocks automated fetching; its summary is from InfoQ coverage.
-- No plugin icon (validator warning).

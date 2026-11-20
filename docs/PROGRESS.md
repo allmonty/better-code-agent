@@ -39,3 +39,7 @@ Append-only. Newest entry at the bottom.
 - Done: README Results gets an across-models table (Opus, Sonnet, Haiku) using clean runs only: the full Sonnet and Haiku suites from before the session-context fix, plus post-fix reports-contradiction (4 runs per arm) and the post-fix runs that finished cleanly.
 - Found: Haiku never starts skills on its own (bare-plan 0.50 both arms), but with the plugin it stopped rewriting a contradicting test (4/4 kept vs 0/4).
 - Not done: post-fix reruns of the remaining Haiku cases timed out at the 600-second cap in both arms overnight (agents finished in about a minute; the delay was on the eval service's side). Rerun them in daytime if needed.
+
+## 2026-11-20: post-fix Haiku reruns
+- Done: the seven Haiku cases that timed out overnight reran cleanly in daytime (~$0.35 estimate). Changes vs the pre-fix numbers: plan-a-feature 0.83 / 0.67 (was 0.83 / 0.83), stays-in-scope 0.93 / 1.00 (one plugin run didn't commit), reports-contradiction 1.00 / 0.40 confirmed. README cross-model table updated; Haiku column is now fully post-fix.
+- Next: roadmap "Next up" item 1, a real project.

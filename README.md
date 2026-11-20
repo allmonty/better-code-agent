@@ -136,23 +136,24 @@ Claude Opus 5.5, 2026-11-17. 3 runs per arm; the first three no-template and har
 | Case | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 |
 |---|---|---|---|
 | implement-next-task | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
-| plan-a-feature | 1.00 / 1.00 | 1.00 / 1.00 | 0.83 / 0.83 |
+| plan-a-feature | 1.00 / 1.00 | 1.00 / 1.00 | 0.83 / 0.67 |
 | review-catches-broken-caller | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
 | fix-without-weakening-tests | 1.00 / 1.00 | 0.87 / 1.00 † | 1.00 / 1.00 |
 | question-triggers-nothing | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
 | reports-contradiction ‡ | 1.00 / 1.00 | 1.00 / 0.85 | **1.00 / 0.40** |
 | review-traces-two-hops | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
-| stays-in-scope | 1.00 / 1.00 | 1.00 / 1.00 | 1.00 / 1.00 |
+| stays-in-scope | 1.00 / 1.00 | 1.00 / 1.00 | 0.93 / 1.00 § |
 | bare-implement-next-task | **1.00 / 0.58** | **1.00 / 0.50** | **0.92 / 0.58** |
 | bare-plan-a-feature | **1.00 / 0.50** | **1.00 / 0.50** | 0.50 / 0.50 |
 | bare-fix-without-weakening-tests | 0.93 / 1.00 † | 1.00 / 0.87 † | 1.00 / 0.93 † |
 
 † The only misses are the judge-graded "showed the check output" grader in one or two runs; both arms fixed the code and kept every test. Read as noise.
-‡ Measured after the session-context fix below, 4 runs per arm on Sonnet and Haiku.
+‡ Measured after the session-context fix below: 4 runs per arm on Sonnet; 7 on Haiku (two rounds).
+§ One run with the plugin did the task in scope but didn't commit it.
+
+The Haiku column was rerun in full after the fix. For Sonnet, reports-contradiction and the two test-fixing cases were rerun after it; its other rows come from runs before the fix.
 
 **A regression the evals caught, and its fix.** Before the fix, the plugin made Sonnet *worse* on reports-contradiction: it rewrote the older test to get green in 7 of 11 runs with the plugin, against 1 of 11 without. In plugin-only sessions the "keep tests, ask on conflict" rule lived only in `.claude/rules/`, which isn't loaded there, while the skills still pointed at a green check. The plugin now adds that rule to every session through a `SessionStart` hook. Afterwards the older test was kept 4 of 4 times on Sonnet and on Haiku (Haiku without the plugin: 0 of 4).
-
-**Not measured:** Haiku and Sonnet reruns of the other cases after that fix. They timed out on the eval service's side (the agents finished in about a minute; the runs ended at the 600-second cap), so the cross-model rows other than ‡ and the bare cases come from runs before the fix.
 
 **What this shows so far:**
 

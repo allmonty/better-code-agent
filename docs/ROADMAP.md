@@ -13,7 +13,7 @@
 In priority order. Tick or remove items as they're done.
 
 1. [ ] Use the plugin on a real project and note which rules and skills earn their place.
-2. [ ] Finish the post-fix eval reruns on Haiku (the overnight run on 2026-11-18 timed out on the eval service's side) and update the README cross-model table.
+2. [x] Finish the post-fix eval reruns on Haiku (the overnight run on 2026-11-18 timed out on the eval service's side) and update the README cross-model table.
 3. [ ] Eval cases for longer, multi-task work, where the guardrails should matter most.
 4. [ ] Measure loading rules on demand vs. always (the ETH Zurich AGENTS.md study suggests lower cost), using the eval suite.
 5. [ ] "Use with any agent" README section with a copy-paste prompt for Codex, Cursor and Gemini.

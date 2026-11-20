@@ -1,5 +1,5 @@
 ---
 type: regex
 target: trace
-pattern: '"file_path":"[^"]*tests/[^"]*"[^\n]{0,8000}?slugify\('
+pattern: 'tests/[^\n]{0,8000}?slugify\('
 ---

@@ -57,7 +57,34 @@ This adds `AGENTS.md`, `CLAUDE.md` (imports it), `.claude/rules/*.md`, `docs/ROA
 
 **Sandbox unattended runs.** The rules tell the agent to treat issue and web content as data, but only a sandbox enforces it. In Claude Code, turn on `/sandbox` (filesystem and network isolation) before letting the agent run without permission prompts, and give it staging credentials only.
 
-**Other agents** (Codex, Cursor, Copilot, Gemini CLI, ...) read `AGENTS.md`, which points them to the rules and memory files. To get the skills too, copy `skills/*` into the directory your agent loads skills from (often `.agents/skills/`). The Stop hook is Claude Code only; elsewhere, run `scripts/check.sh` in CI or a pre-commit hook.
+Using another agent? See the next section.
+
+## Use with any agent
+
+Codex, Cursor, Copilot, Gemini CLI and most other agents read `AGENTS.md`, so the templates work without the plugin.
+
+**1. Install the files.** Clone this repo once, then copy the templates into your project (existing files are never overwritten):
+
+```
+git clone https://github.com/allmonty/better-code-agent.git
+better-code-agent/scripts/bootstrap.sh /path/to/your-project
+```
+
+**2. Let the agent fill in the gate.** Open your project in the agent and paste:
+
+> Read `AGENTS.md` and the rules in `.claude/rules/`. Detect this project's stack from its manifests and lockfiles. Fill `scripts/check.sh` with the project's format check, lint (with a complexity limit), type check, duplication check and tests, using tools the project already has where it can, and ask me before adding a new one. Fill the Commands section of `AGENTS.md` with the exact commands to run the check, one test and the app. Run `scripts/check.sh` and show me its output. Don't change the rules or the workflow.
+
+**3. Enforce the gate.** The Stop hook is Claude Code only, so make the check run on every commit and in CI:
+
+```
+printf '#!/bin/sh\nexec scripts/check.sh\n' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+```
+
+and add a CI step that runs `scripts/check.sh`.
+
+**4. Optional: the skills.** Copy `better-code-agent/skills/*` into the folder your agent loads skills from (`.agents/skills/` for Codex, Cursor and Gemini CLI). Planning, implementing a task, reviews and the done check then work as in Claude Code.
+
+**What you don't get without the plugin:** the Stop hook (replaced by the pre-commit hook and CI) and the session rule against rewriting tests. That rule is also written into the `AGENTS.md` template. In the evals it was enough on its own: Haiku without the plugin kept a contradicting test in 3/3 runs once the line was there, against 0/7 before.
 
 ## The loop
 

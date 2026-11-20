@@ -18,6 +18,7 @@ A map, not a manual. Only what an agent can't work out from the code. Add a line
 2. Bigger than one commit: write a plan in `docs/plans/` and get it approved first.
 3. One task at a time: test first, implement, check green, commit, log in `docs/PROGRESS.md`.
 4. Done means: acceptance criteria met, check green with the output shown, plan and progress updated, committed.
+5. Existing tests are the spec. Never delete, skip, loosen or rewrite an existing test to make a check pass. If tests contradict each other or one looks wrong, stop and ask which behaviour is intended.
 
 ## Conventions
 <!-- Decisions not visible in the code, e.g. "use the error helpers in src/lib/errors.ts". -->

@@ -48,3 +48,8 @@ Append-only. Newest entry at the bottom.
 - Done: three long cases (whole plan, resume from memory, feature end to end with the user away), 3 runs per arm on Sonnet and Haiku (~$2 estimate). First run's commit/test graders were wrong (three commits in one Bash call counted once; heredoc test writes missed), fixed in their own commit and rerun.
 - Result: whole plan 0.67 / 0.46 on Sonnet, 0.79 / 0.50 on Haiku (the plugin brings back one commit per task; progress never recorded without templates). Resume 1.00 / 1.00 on Sonnet, 0.88 / 1.00 on Haiku over 6 plugin runs (one incomplete run, then 3/3 with implement-task). Feature end to end 0.62 / 0.62 on both: plan-feature never started, no step commits in either arm.
 - Next: roadmap item 9, make the planning and implementing skills trigger on their own for build requests and whole-plan runs.
+
+## 2026-11-20: CI template and skill triggers
+- Done: `templates/.github/workflows/check.yml` (runs scripts/check.sh on push and PRs), wired by bootstrap-project. Rewrote plan-feature and implement-task descriptions and behaviour so they start on build requests, absent users and whole-plan runs. Found and fixed Haiku mistaking the skill's folder for the project; skills now anchor paths to the working directory.
+- Result (with-plugin arm, 3 runs; without arms unchanged): Sonnet end-to-end 0.62 -> 0.92, whole plan 0.67 -> 1.00; Haiku whole plan 0.79 -> 0.92, plan-a-feature 0.83 -> 1.00, bare-plan 0.50 -> 1.00, resume 6/6 after the path fix. No regressions on plan-a-feature (still stops) or question-triggers-nothing.
+- Next: Haiku on long-feature-end-to-end still skips planning (0.62).

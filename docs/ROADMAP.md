@@ -21,3 +21,4 @@ Done: post-fix Haiku reruns, long multi-task evals, "Use with any agent" README 
 
 ## Debt
 - The OpenAI harness engineering post blocks automated fetching; its summary is from InfoQ coverage.
+- `hooks/check-on-stop.sh:28` — a same-size edit to an untracked file within the same second goes unseen — hash contents if that bites.

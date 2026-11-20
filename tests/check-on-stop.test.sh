@@ -75,4 +75,15 @@ echo e > e.txt; stop_s1; [ "$rc" = 2 ] || fail "change in session should be chec
 echo c > c.txt
 set +e; echo '{}' | BCA_DISABLE_STOP_HOOK=1 CLAUDE_PROJECT_DIR="$tmp/repo" "$hook" 2>/dev/null; rc=$?; set -e
 [ "$rc" = 0 ] || fail "disable switch ignored"
+
+# Unborn repo (no HEAD yet): staging a file after SessionStart triggers the gate.
+mkdir -p "$tmp/unborn/scripts"
+cd "$tmp/unborn" && git init -q && git config user.email t@t && git config user.name t
+printf '#!/usr/bin/env bash\nexit 1\n' > scripts/check.sh && chmod +x scripts/check.sh
+echo '{"hook_event_name":"SessionStart","session_id":"s-unborn"}' | CLAUDE_PROJECT_DIR="$tmp/unborn" "$hook" 2>/dev/null
+echo x > x.txt && git add x.txt
+set +e; echo '{"hook_event_name":"Stop","session_id":"s-unborn","stop_hook_active":false}' \
+  | CLAUDE_PROJECT_DIR="$tmp/unborn" "$hook" 2>/dev/null; rc=$?; set -e
+[ "$rc" = 2 ] || fail "staged change in unborn repo should trigger check (rc=$rc)"
+
 echo "check-on-stop: ok"

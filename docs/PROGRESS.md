@@ -58,3 +58,7 @@ Append-only. Newest entry at the bottom.
 - Done: traces showed Haiku sees plan-feature but never chooses it for "build this, I'm away". Added one line to the SessionStart rule: multi-commit work starts with a plan and lands as one tested commit per task.
 - Result (with plugin, 3 runs): Haiku long-feature-end-to-end 0.62 -> 1.00; plan-a-feature, question-triggers-nothing, stays-in-scope 1.00. Sonnet end-to-end 0.83 (0.92 before; 0.88 over 6 runs).
 - Decided: for smaller models the always-on rule is the lever; skills alone aren't chosen.
+
+## 2026-11-20: opt-in AI review in CI
+- Done: `ci/github/review-change.yml` runs review-change on each non-draft, same-repo PR via anthropics/claude-code-action@v1 (plugin installed from this repo's marketplace) and posts the report with `gh pr comment`. Opt-in because it needs a secret and spends model calls per PR. CI template bumped to actions/checkout@v6.
+- Not verified: the workflow hasn't run on GitHub yet (needs a secret and a PR); YAML parses and inputs match the action docs.

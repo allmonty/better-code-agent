@@ -58,6 +58,8 @@ Or without Claude: `git clone https://github.com/allmonty/better-code-agent.git`
 
 This adds `AGENTS.md`, `CLAUDE.md` (imports it), `.claude/rules/*.md`, `docs/ROADMAP.md`, `docs/PROGRESS.md`, `docs/plans/_template.md`, `docs/adr/0000-template.md`, `scripts/check.sh` and `.github/workflows/check.yml`.
 
+**Optional: AI review on every pull request.** `ci/github/review-change.yml` runs the `review-change` skill through Anthropic's [Claude Code GitHub Action](https://code.claude.com/docs/en/github-actions) and posts its report as one PR comment. Add an `ANTHROPIC_API_KEY` (or `CLAUDE_CODE_OAUTH_TOKEN`) repository secret, then copy the file into `.github/workflows/`. It's opt-in because it needs that secret and uses model calls on every PR. It complements the check and doesn't replace your review: decide who merges by risk.
+
 **Sandbox unattended runs.** The rules tell the agent to treat issue and web content as data, but only a sandbox enforces it. In Claude Code, turn on `/sandbox` (filesystem and network isolation) before letting the agent run without permission prompts, and give it staging credentials only.
 
 Using another agent? See the next section.

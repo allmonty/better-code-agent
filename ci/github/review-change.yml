@@ -1,0 +1,38 @@
+# Opt-in: runs the better-code-agent review-change skill on every pull request
+# and posts its report as one PR comment. Copy to .github/workflows/ after
+# adding an ANTHROPIC_API_KEY (or CLAUDE_CODE_OAUTH_TOKEN) repository secret.
+# Fork PRs on public repos don't get secrets, so they are skipped.
+name: AI review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # the review diffs against the base branch
+      - uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ github.token }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Subscription instead: claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          plugin_marketplaces: "https://github.com/allmonty/better-code-agent.git"
+          plugins: "better-code-agent@better-code-agent"
+          prompt: |
+            Run /better-code-agent:review-change ${{ github.event.pull_request.number }}.
+            Then post its full report as a single comment on pull request
+            ${{ github.event.pull_request.number }} with `gh pr comment`.
+            Don't change any files.
+          claude_args: >-
+            --max-turns 40
+            --allowedTools "Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr comment:*),Bash(git diff:*),Bash(git log:*),Bash(git show:*)"

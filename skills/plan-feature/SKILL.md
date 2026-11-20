@@ -1,6 +1,6 @@
 ---
 name: plan-feature
-description: Breaks a feature or large change into a written plan in docs/plans/ with acceptance criteria, one-commit tasks with a verification each, a test plan and open questions, then stops for approval. Use before any work bigger than one commit, or when the user asks to plan, spec or break down a feature.
+description: Writes a plan in docs/plans/ before building - acceptance criteria, one-commit tasks with a verification each, a test plan and open questions - then stops for approval, or proceeds task by task when the user has said not to wait. Use first whenever the user asks to build, add or implement a feature or change that needs more than one commit, even if they say to just build it or that they are away; also when they ask to plan, spec or break down work.
 argument-hint: "[feature description]"
 ---
 
@@ -19,6 +19,7 @@ Feature: $ARGUMENTS
    - Test plan: which level covers each acceptance criterion (`.claude/rules/testing.md`).
    - Open questions.
 4. **Register it** in `docs/ROADMAP.md` with status `planned`.
-5. **Stop.** Show the plan's tasks and open questions and ask for approval. Don't write code in this skill.
+5. **Stop for approval.** Show the plan's tasks and open questions and ask for approval. Don't write code in this skill.
+   If the user already said to go ahead without them ("just build it", "I'm away", "don't wait for me"), don't stop: answer the open questions with the most reasonable choice, record each one under the plan's Notes, set the status to `approved (by request)`, commit the plan, then implement the tasks one by one with the `implement-task` workflow.
 
 A good task: "Add `RateLimiter.allow(key)` with a sliding window — verify: unit tests for limit, window reset, separate keys". A bad task: "Implement rate limiting".

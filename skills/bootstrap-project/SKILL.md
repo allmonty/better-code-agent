@@ -7,6 +7,8 @@ allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/scripts/bootstrap.sh *)
 
 # Bootstrap project guardrails
 
+Work in the user's project: the current working directory. Every path below is relative to it, not to this skill's own folder.
+
 Copy this checklist and tick it as you go:
 
 ```

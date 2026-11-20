@@ -5,6 +5,8 @@ description: Runs the definition-of-done check before claiming a task or feature
 
 # Verify done
 
+Work in the user's project: the current working directory. Every path below is relative to it, not to this skill's own folder.
+
 Don't report done until each line below holds, with evidence shown.
 
 ```

@@ -6,6 +6,8 @@ argument-hint: "[decision to make]"
 
 # Architecture decision
 
+Work in the user's project: the current working directory. Every path below is relative to it, not to this skill's own folder.
+
 Decision: $ARGUMENTS
 
 1. **Gather the forces.** Read existing ADRs and the code. Find out from the code and the user: the domain's complexity, expected load and data size, team size, deployment target, the stack the team already knows, and what must stay easy to change.

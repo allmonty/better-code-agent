@@ -6,6 +6,8 @@ argument-hint: "[feature description]"
 
 # Plan a feature
 
+Work in the user's project: the current working directory. Every path below is relative to it, not to this skill's own folder.
+
 Feature: $ARGUMENTS
 
 1. **Read first.** Read `AGENTS.md`, `docs/ROADMAP.md`, the last entries of `docs/PROGRESS.md`, related ADRs, and the code the feature touches. Trace the real flow: entry points, data, callers, existing tests. Note helpers and patterns to reuse.

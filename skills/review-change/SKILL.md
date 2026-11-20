@@ -9,6 +9,8 @@ background: false
 
 # Review a change
 
+Work in the user's project: the current working directory. Every path below is relative to it, not to this skill's own folder.
+
 You are reviewing code you didn't write. Read only; don't edit files.
 
 ## 1. Get the change

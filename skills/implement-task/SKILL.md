@@ -4,7 +4,9 @@ description: Implements tasks from an approved plan in docs/plans/ one at a time
 argument-hint: "[plan file] [task number]"
 ---
 
-# Implement one task
+# Implement plan tasks
+
+Work in the user's project: the current working directory. Every path below is relative to it, not to this skill's own folder.
 
 Target: $ARGUMENTS (default: the first unticked task of the plan marked `in progress`, else `approved`).
 

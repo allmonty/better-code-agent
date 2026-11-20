@@ -2,6 +2,8 @@
 
 Guardrails that keep AI-written code at production quality without reading every line yourself.
 
+**What it's shown so far:** in [evals](#results) on Opus, Sonnet and Haiku, the guardrails reliably make agents follow good engineering process (test first, one commit per task, a written plan, a progress log the next session can resume from) and stop weaker models from rewriting tests to get green. Whether that turns into better software on real projects isn't measured yet: the evals use small tasks on a toy project, and use on real projects is still to be tested.
+
 Following [Böckeler's harness engineering](https://martinfowler.com/articles/harness-engineering.html) framing, a harness has two halves:
 
 - **Guides** steer the agent before it acts: short rules, an `AGENTS.md` map, and skills for planning and building.

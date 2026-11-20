@@ -14,7 +14,8 @@ In priority order. Tick or remove items as they're done.
 
 1. [ ] Use the plugin on a real project and note which rules and skills earn their place.
 2. [x] Finish the post-fix eval reruns on Haiku (the overnight run on 2026-11-18 timed out on the eval service's side) and update the README cross-model table.
-3. [ ] Eval cases for longer, multi-task work, where the guardrails should matter most.
+3. [x] Eval cases for longer, multi-task work, where the guardrails should matter most.
+9. [ ] Make `plan-feature` and `implement-task` start on their own for "build X" requests and whole-plan runs (long-feature-end-to-end: no plan or step commits on any model; long-implement-whole-plan: no progress log). Re-measure with the long evals.
 4. [ ] Measure loading rules on demand vs. always (the ETH Zurich AGENTS.md study suggests lower cost), using the eval suite.
 5. [x] "Use with any agent" README section with a copy-paste prompt for Codex, Cursor and Gemini.
 6. [ ] Stack packs, agent adapters and the CI template (milestones above).

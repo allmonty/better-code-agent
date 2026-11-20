@@ -180,6 +180,20 @@ Claude Opus 5.5, 2026-11-17. 3 runs per arm; the first three no-template and har
 
 The Haiku column was rerun in full after the fix. For Sonnet, reports-contradiction and the two test-fixing cases were rerun after it; its other rows come from runs before the fix.
 
+**Long, multi-task work** (score with plugin / without; 3 runs per arm, Sonnet and Haiku):
+
+| Case | What passes | Sonnet 5.5 | Haiku 5.5 |
+|---|---|---|---|
+| long-implement-whole-plan | A 3-task plan in a project with no templates: a commit per task, tests per task, test first, plan ticked, progress recorded | **0.67 / 0.46** | **0.79 / 0.50** |
+| long-resume-from-progress | A new session told to "continue": does only the open task, no duplicates, ticks it, appends to PROGRESS | 1.00 / 1.00 | 0.88 / 1.00 ¶ |
+| long-feature-end-to-end | A 3-part feature with the user away: plan file, commits in steps, tests per part, no skipped tests, evidence | 0.62 / 0.62 | 0.62 / 0.62 |
+
+¶ 6 runs with the plugin: one incomplete run in the first 3, then 3 of 3 passing with `implement-task` used.
+
+- **Across a whole plan, the plugin brings back one commit per task** (2 of 3 runs with it on both models, 0 of 3 without), but nobody recorded progress in a project without the templates, in either arm.
+- **Resuming from the memory files works with or without the plugin.** When `PROGRESS.md` and the plan exist, agents read them and do only what's left.
+- **Building a feature end to end with the user away, no agent planned or committed in steps,** with or without the plugin: `plan-feature` never started. This is the clearest gap the evals found, and it's next on the roadmap.
+
 **A regression the evals caught, and its fix.** Before the fix, the plugin made Sonnet *worse* on reports-contradiction: it rewrote the older test to get green in 7 of 11 runs with the plugin, against 1 of 11 without. In plugin-only sessions the "keep tests, ask on conflict" rule lived only in `.claude/rules/`, which isn't loaded there, while the skills still pointed at a green check. The plugin now adds that rule to every session through a `SessionStart` hook. Afterwards the older test was kept 4 of 4 times on Sonnet and on Haiku (Haiku without the plugin: 0 of 4).
 
 **What this shows so far:**

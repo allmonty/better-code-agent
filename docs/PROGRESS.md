@@ -43,3 +43,8 @@ Append-only. Newest entry at the bottom.
 ## 2026-11-20: post-fix Haiku reruns
 - Done: the seven Haiku cases that timed out overnight reran cleanly in daytime (~$0.35 estimate). Changes vs the pre-fix numbers: plan-a-feature 0.83 / 0.67 (was 0.83 / 0.83), stays-in-scope 0.93 / 1.00 (one plugin run didn't commit), reports-contradiction 1.00 / 0.40 confirmed. README cross-model table updated; Haiku column is now fully post-fix.
 - Next: roadmap "Next up" item 1, a real project.
+
+## 2026-11-20: long multi-task evals
+- Done: three long cases (whole plan, resume from memory, feature end to end with the user away), 3 runs per arm on Sonnet and Haiku (~$2 estimate). First run's commit/test graders were wrong (three commits in one Bash call counted once; heredoc test writes missed), fixed in their own commit and rerun.
+- Result: whole plan 0.67 / 0.46 on Sonnet, 0.79 / 0.50 on Haiku (the plugin brings back one commit per task; progress never recorded without templates). Resume 1.00 / 1.00 on Sonnet, 0.88 / 1.00 on Haiku over 6 plugin runs (one incomplete run, then 3/3 with implement-task). Feature end to end 0.62 / 0.62 on both: plan-feature never started, no step commits in either arm.
+- Next: roadmap item 9, make the planning and implementing skills trigger on their own for build requests and whole-plan runs.

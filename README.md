@@ -54,7 +54,7 @@ To try local changes, add a clone instead: `/plugin marketplace add /path/to/bet
 
 Or without Claude: `git clone https://github.com/allmonty/better-code-agent.git` and run `better-code-agent/scripts/bootstrap.sh <project-dir>`, then fill in `scripts/check.sh` and the commands in `AGENTS.md`. The script never overwrites existing files.
 
-This adds `AGENTS.md`, `CLAUDE.md` (imports it), `.claude/rules/*.md`, `docs/ROADMAP.md`, `docs/PROGRESS.md`, `docs/plans/_template.md`, `docs/adr/0000-template.md` and `scripts/check.sh`.
+This adds `AGENTS.md`, `CLAUDE.md` (imports it), `.claude/rules/*.md`, `docs/ROADMAP.md`, `docs/PROGRESS.md`, `docs/plans/_template.md`, `docs/adr/0000-template.md`, `scripts/check.sh` and `.github/workflows/check.yml`.
 
 **Sandbox unattended runs.** The rules tell the agent to treat issue and web content as data, but only a sandbox enforces it. In Claude Code, turn on `/sandbox` (filesystem and network isolation) before letting the agent run without permission prompts, and give it staging credentials only.
 
@@ -81,7 +81,7 @@ better-code-agent/scripts/bootstrap.sh /path/to/your-project
 printf '#!/bin/sh\nexec scripts/check.sh\n' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
 ```
 
-and add a CI step that runs `scripts/check.sh`.
+The bootstrap also adds `.github/workflows/check.yml`, which runs `scripts/check.sh` on every push and pull request; add your stack's setup step to it (the prompt above can do that too).
 
 **4. Optional: the skills.** Copy `better-code-agent/skills/*` into the folder your agent loads skills from (`.agents/skills/` for Codex, Cursor and Gemini CLI). Planning, implementing a task, reviews and the done check then work as in Claude Code.
 

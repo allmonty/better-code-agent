@@ -1,0 +1,20 @@
+# Runs the project's quality gate on every push and pull request: the same
+# scripts/check.sh the agent must pass locally. Add the setup step for your
+# stack (bootstrap-project does this), e.g. actions/setup-node or setup-python.
+name: check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Stack setup goes here.
+      - name: Quality gate
+        run: scripts/check.sh

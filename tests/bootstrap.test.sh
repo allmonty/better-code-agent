@@ -15,7 +15,8 @@ out="$("$root/scripts/bootstrap.sh" "$tmp")"
 [ "$(cat "$tmp/AGENTS.md")" = "mine" ] || fail "existing AGENTS.md was overwritten"
 echo "$out" | grep -q "skip.*AGENTS.md" || fail "skip not reported"
 for f in CLAUDE.md docs/ROADMAP.md docs/PROGRESS.md docs/plans/_template.md \
-         docs/adr/0000-template.md .claude/rules/testing.md .claude/rules/security.md; do
+         docs/adr/0000-template.md .claude/rules/testing.md .claude/rules/security.md \
+         .github/workflows/check.yml; do
   [ -f "$tmp/$f" ] || fail "missing $f"
 done
 [ -x "$tmp/scripts/check.sh" ] || fail "check.sh not executable"

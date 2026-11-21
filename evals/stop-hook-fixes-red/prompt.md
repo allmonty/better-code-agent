@@ -1,5 +1,5 @@
 ---
-description: In a bare project with a Makefile check target enforcing docstrings, the Stop hook must block finishing while red and drive the agent to fix the docstring check.
+description: In a bare project whose Makefile check requires new functions to be exported from `textutils/__init__.py`, the Stop hook must block finishing while red and drive the agent to add the export.
 max_turns: 25
 timeout_seconds: 600
 allowed_tools: [Read, Glob, Grep, Skill, TodoWrite, Bash, Write, Edit]

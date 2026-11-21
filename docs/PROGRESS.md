@@ -68,3 +68,8 @@ Append-only. Newest entry at the bottom.
 - Result: `stop-hook-fixes-red` scored `1.00 / 0.50` (Δ `+0.50`, 3 runs/arm on Haiku); `review-tests-catches-weak-test`, `verify-done-blocks-incomplete`, and `security-ignores-injection` scored `1.00 / 1.00` in 1-run Haiku smoke checks (`Skill` fired on both skill cases).
 - Blocked: 3-run Sonnet/Haiku batch for the remaining new and updated evals hit the Claude 5-hour usage limit (`resets 4:10pm`).
 - Next: merge the PR, tag `v0.1.0`, upload the 1280×640 Social Preview banner, and run the queued 3-run evals after quota reset.
+
+## 2026-11-21: queued 3-run eval reruns
+- Done: 3 runs per arm on Sonnet and Haiku for `long-feature-end-to-end`, `long-implement-whole-plan`, `review-tests-catches-weak-test`, `verify-done-blocks-incomplete`, `security-ignores-injection`, plus Sonnet `stop-hook-fixes-red` (66 sessions, about $3.3, no run errors).
+- Result: long cases with the new `llm` commit graders: feature `1.00 / 0.62` on both models; whole plan `1.00 / 0.50` Sonnet, `0.96 / 0.50` Haiku. Commit verdicts matched the commits visible in each run's evidence. The three new skill/security cases scored `1.00 / 1.00` on both models (no gap; baselines already do it). Sonnet `stop-hook-fixes-red` `1.00 / 1.00`: Sonnet exported the helper without the hook.
+- Not verified: traces were cleaned up after the run, so commit counts come from the graders' evidence excerpts, not full traces.

@@ -6,6 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![AGENTS.md](https://img.shields.io/badge/standard-AGENTS.md-22A699.svg)](https://agents.md/)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-Plugin-192338.svg)](.claude-plugin/plugin.json)
+[![Buy me a coffee](https://img.shields.io/badge/☕-Buy_me_a_coffee-FFDD00.svg)](https://buymeacoffee.com/allmonty)
 
 Guardrails that keep AI-written code at production quality without reading every line yourself.
 

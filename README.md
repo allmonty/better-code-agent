@@ -1,4 +1,6 @@
-# better-code-agent
+<img width="1280" height="640" alt="social-preview" src="https://github.com/user-attachments/assets/a2e9194f-fd82-4fdc-ba0a-2e62902d2a89" />
+
+# Better Code Agent
 
 Guardrails that keep AI-written code at production quality without reading every line yourself.
 

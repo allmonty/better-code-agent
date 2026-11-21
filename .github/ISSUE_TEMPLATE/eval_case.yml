@@ -1,0 +1,19 @@
+name: New eval case
+description: Propose an eval case for an untested failure mode or skill
+title: "[eval]: "
+labels: ["evals"]
+body:
+  - type: textarea
+    id: failure_mode
+    attributes:
+      label: Failure mode
+      description: What mistake does the coding agent make without guardrails?
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Proposed fixture, prompt, and graders
+      description: Describe the minimal fixture, prompt, and deterministic/LLM graders.
+    validations:
+      required: true

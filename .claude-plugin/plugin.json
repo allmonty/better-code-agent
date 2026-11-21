@@ -6,13 +6,19 @@
     "name": "Allan Monteiro"
   },
   "license": "MIT",
+  "homepage": "https://github.com/allmonty/better-code-agent#readme",
   "repository": "https://github.com/allmonty/better-code-agent",
   "keywords": [
     "guardrails",
     "harness-engineering",
     "testing",
     "code-review",
-    "agents-md"
+    "agents-md",
+    "claude-code",
+    "tdd",
+    "workflows",
+    "ai-agents",
+    "security"
   ],
   "icon": ".claude-plugin/icon.png"
 }
